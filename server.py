@@ -269,6 +269,101 @@ def git_pull_request(base: str = "main", title: str = "", body: str = "") -> str
         return f"Error: {result.stderr}"
     except Exception as e:
         return f"Error: {str(e)}"
+
+# ============================================
+# PHASE 5: CREATIVE EXTENSION 1
+# Specification-Based Testing Generator
+# ============================================
+
+@mcp.tool
+def generate_boundary_tests(method_name: str, param_type: str) -> str:
+    """Generate boundary value test cases for a method"""
+    try:
+        tests = f"""
+// Boundary Value Tests for {method_name}({param_type})
+@Test
+public void test{method_name}WithZero() {{
+    // Boundary: zero value
+    assertNotNull(instance.{method_name}(0));
+}}
+
+@Test
+public void test{method_name}WithPositive() {{
+    // Boundary: positive value
+    assertNotNull(instance.{method_name}(100));
+}}
+
+@Test
+public void test{method_name}WithNegative() {{
+    // Boundary: negative value
+    assertNotNull(instance.{method_name}(-100));
+}}
+
+@Test
+public void test{method_name}WithMax() {{
+    // Boundary: max value
+    assertNotNull(instance.{method_name}(Integer.MAX_VALUE));
+}}
+
+@Test
+public void test{method_name}WithMin() {{
+    // Boundary: min value
+    assertNotNull(instance.{method_name}(Integer.MIN_VALUE));
+}}
+"""
+        return f"📋 Boundary Value Tests for {method_name}\n{tests}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+# ============================================
+# PHASE 5: CREATIVE EXTENSION 2
+# AI Code Review Agent
+# ============================================
+
+@mcp.tool
+def quick_code_review(file_path: str) -> str:
+    """Quick code review for common issues"""
+    try:
+        with open(file_path, 'r') as f:
+            content = f.read()
+        
+        issues = []
+        
+        # Check 1: Empty catch blocks
+        if re.search(r'catch\s*\([^)]*\)\s*\{\s*\}', content):
+            issues.append("🔴 Empty catch block detected")
+        
+        # Check 2: Magic numbers
+        if re.search(r'[^\w]\d{2,}[^\w]', content) and content.count(re.findall(r'\d{2,}', content)[0] if re.findall(r'\d{2,}', content) else '') > 2:
+            issues.append("⚠️ Magic numbers found - use constants")
+        
+        # Check 3: Long methods
+        methods = re.findall(r'public\s+\w+\s+\w+.*?\{.*?\}', content, re.DOTALL)
+        long_methods = [m for m in methods if m.count('\n') > 20]
+        if long_methods:
+            issues.append(f"⚠️ {len(long_methods)} long methods detected (>20 lines)")
+        
+        # Check 4: Null checks
+        if '.get(' in content or '.length' in content:
+            if 'null' not in content:
+                issues.append("⚠️ Potential null pointer issue")
+        
+        review = "🔍 Code Review Summary\n\n"
+        if issues:
+            review += "Issues Found:\n" + "\n".join(issues)
+        else:
+            review += "✅ No major issues detected!"
+        
+        review += "\n\n💡 Best Practices:\n  • Keep methods < 20 lines\n  • Use named constants\n  • Handle nulls explicitly\n  • Avoid empty catch blocks"
+        
+        return review
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+
+
 # ============================================
 # Helper Functions
 # ============================================
