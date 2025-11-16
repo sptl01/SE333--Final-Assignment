@@ -1,6 +1,6 @@
 ---
 agent: "agent"
-tools: ["Calculator MCP", "SE-333", SE333-Final]
+tools: ["Calculator MCP", "SE-333", "SE333-Final", "SE333-Final Extension"]
 description: "A testing agent that generates and improves JUnit tests to maximize code coverage using JaCoCo and Maven."
 model: "Gpt-5 mini"
 ---
