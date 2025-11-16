@@ -185,7 +185,6 @@ def get_uncovered_lines(project_path: str = "maven-projects/assign") -> str:
         for sourcefile in root.findall(".//sourcefile"):
             filename = sourcefile.get("name")
             for line in sourcefile.findall(".//line"):
-                # Check if line is not covered (ci="0" means 0 instructions covered)
                 ci = line.get("ci", "0")
                 if ci == "0":
                     line_number = line.get("nr")
@@ -201,7 +200,75 @@ def get_uncovered_lines(project_path: str = "maven-projects/assign") -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
+# ============================================
+# PHASE 3: GIT AUTOMATION TOOLS
+# ============================================
 
+@mcp.tool
+def git_status() -> str:
+    """Return git status: clean, staged changes, conflicts"""
+    try:
+        result = subprocess.run(["git", "status"], capture_output=True, text=True)
+        return result.stdout
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+@mcp.tool
+def git_add_all() -> str:
+    """Stage all changes with filtering (uses .gitignore)"""
+    try:
+        result = subprocess.run(["git", "add", "-A"], capture_output=True, text=True)
+        if result.returncode == 0:
+            return "✅ All changes staged successfully"
+        return f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+@mcp.tool
+def git_commit(message: str) -> str:
+    """Commit with standardized message (include coverage stats)"""
+    try:
+        result = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
+        if result.returncode == 0:
+            return f"✅ Commit successful: {message}"
+        return f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+@mcp.tool
+def git_push(remote: str = "origin") -> str:
+    """Push to remote, set upstream if needed"""
+    try:
+        result = subprocess.run(
+            ["git", "push", "--set-upstream", remote, "HEAD"],
+            capture_output=True,
+            text=True
+        )
+        if result.returncode == 0:
+            return "✅ Push successful"
+        return f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+@mcp.tool
+def git_pull_request(base: str = "main", title: str = "", body: str = "") -> str:
+    """Create PR with template, return URL"""
+    try:
+        result = subprocess.run(
+            ["gh", "pr", "create", "--base", base, "--title", title, "--body", body],
+            capture_output=True,
+            text=True
+        )
+        if result.returncode == 0:
+            url_match = re.search(r"https://github\.com/.+/pull/\d+", result.stdout)
+            return f"✅ PR created: {url_match.group(0) if url_match else result.stdout}"
+        return f"Error: {result.stderr}"
+    except Exception as e:
+        return f"Error: {str(e)}"
 # ============================================
 # Helper Functions
 # ============================================
