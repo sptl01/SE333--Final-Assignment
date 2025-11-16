@@ -34,9 +34,9 @@ import java.util.Objects;
     }
 
     public int subtract(Integer a, Integer b) {
-<span class="nc" id="L37">        Objects.requireNonNull(a, &quot;subtract: operands must not be null&quot;);</span>
-<span class="nc" id="L38">        Objects.requireNonNull(b, &quot;subtract: operands must not be null&quot;);</span>
-<span class="nc" id="L39">        return subtract(a.intValue(), b.intValue());</span>
+<span class="fc" id="L37">        Objects.requireNonNull(a, &quot;subtract: operands must not be null&quot;);</span>
+<span class="fc" id="L38">        Objects.requireNonNull(b, &quot;subtract: operands must not be null&quot;);</span>
+<span class="fc" id="L39">        return subtract(a.intValue(), b.intValue());</span>
     }
 
     public int multiply(Integer a, Integer b) {
@@ -47,8 +47,8 @@ import java.util.Objects;
 
     public int divide(Integer a, Integer b) {
 <span class="fc" id="L49">        Objects.requireNonNull(a, &quot;divide: operands must not be null&quot;);</span>
-<span class="nc" id="L50">        Objects.requireNonNull(b, &quot;divide: operands must not be null&quot;);</span>
-<span class="nc" id="L51">        return divide(a.intValue(), b.intValue());</span>
+<span class="fc" id="L50">        Objects.requireNonNull(b, &quot;divide: operands must not be null&quot;);</span>
+<span class="fc" id="L51">        return divide(a.intValue(), b.intValue());</span>
     }
 
     public boolean isEven(Integer n) {

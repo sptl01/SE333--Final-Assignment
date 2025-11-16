@@ -29,6 +29,14 @@ public class CalculatorNullChecksTest {
     public void nonNullOverloadsWork() {
         assertEquals(5, calc.add(Integer.valueOf(2), Integer.valueOf(3)));
         assertEquals(6, calc.multiply(Integer.valueOf(2), Integer.valueOf(3)));
+        assertEquals(2, calc.subtract(Integer.valueOf(5), Integer.valueOf(3)));
+        assertEquals(2, calc.divide(Integer.valueOf(6), Integer.valueOf(3)));
         assertTrue(calc.isEven(Integer.valueOf(4)));
+    }
+
+    @Test
+    public void subtractNullsThrow() {
+        assertThrows(NullPointerException.class, () -> calc.subtract((Integer)null, Integer.valueOf(1)));
+        assertThrows(NullPointerException.class, () -> calc.subtract(Integer.valueOf(1), (Integer)null));
     }
 }
