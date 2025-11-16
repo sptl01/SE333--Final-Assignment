@@ -10,18 +10,18 @@
     }
     
     public int multiply(int a, int b) {
-<span class="nc" id="L13">        return a * b;</span>
+<span class="fc" id="L13">        return a * b;</span>
     }
     
     public int divide(int a, int b) {
-<span class="nc bnc" id="L17" title="All 2 branches missed.">        if (b == 0) {</span>
-<span class="nc" id="L18">            throw new IllegalArgumentException(&quot;Cannot divide by zero&quot;);</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        if (b == 0) {</span>
+<span class="fc" id="L18">            throw new IllegalArgumentException(&quot;Cannot divide by zero&quot;);</span>
         }
-<span class="nc" id="L20">        return a / b;</span>
+<span class="fc" id="L20">        return a / b;</span>
     }
     
     public boolean isEven(int n) {
-<span class="nc bnc" id="L24" title="All 2 branches missed.">        return n % 2 == 0;</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        return n % 2 == 0;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
