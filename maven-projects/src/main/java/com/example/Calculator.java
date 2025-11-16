@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.Objects;
+
 public class Calculator {
     public int add(int a, int b) {
         return a + b;
@@ -26,27 +28,31 @@ public class Calculator {
 
     // Null-checking overloads for caller convenience (throw NPE with clear message)
     public int add(Integer a, Integer b) {
-        if (a == null || b == null) throw new NullPointerException("add: operands must not be null");
+        Objects.requireNonNull(a, "add: operands must not be null");
+        Objects.requireNonNull(b, "add: operands must not be null");
         return add(a.intValue(), b.intValue());
     }
 
     public int subtract(Integer a, Integer b) {
-        if (a == null || b == null) throw new NullPointerException("subtract: operands must not be null");
+        Objects.requireNonNull(a, "subtract: operands must not be null");
+        Objects.requireNonNull(b, "subtract: operands must not be null");
         return subtract(a.intValue(), b.intValue());
     }
 
     public int multiply(Integer a, Integer b) {
-        if (a == null || b == null) throw new NullPointerException("multiply: operands must not be null");
+        Objects.requireNonNull(a, "multiply: operands must not be null");
+        Objects.requireNonNull(b, "multiply: operands must not be null");
         return multiply(a.intValue(), b.intValue());
     }
 
     public int divide(Integer a, Integer b) {
-        if (a == null || b == null) throw new NullPointerException("divide: operands must not be null");
+        Objects.requireNonNull(a, "divide: operands must not be null");
+        Objects.requireNonNull(b, "divide: operands must not be null");
         return divide(a.intValue(), b.intValue());
     }
 
     public boolean isEven(Integer n) {
-        if (n == null) throw new NullPointerException("isEven: parameter must not be null");
+        Objects.requireNonNull(n, "isEven: parameter must not be null");
         return isEven(n.intValue());
     }
 }

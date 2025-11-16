@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assign</a> &gt; <a href="index.source.html" class="el_package">com.example</a> &gt; <span class="el_source">Calculator.java</span></div><h1>Calculator.java</h1><pre class="source lang-java linenums">package com.example;
 
-<span class="fc" id="L3">public class Calculator {</span>
+import java.util.Objects;
+
+<span class="fc" id="L5">public class Calculator {</span>
     public int add(int a, int b) {
-<span class="fc" id="L5">        return a + b;</span>
+<span class="fc" id="L7">        return a + b;</span>
     }
     
     public int subtract(int a, int b) {
-<span class="fc" id="L9">        return a - b;</span>
+<span class="fc" id="L11">        return a - b;</span>
     }
     
     public int multiply(int a, int b) {
-<span class="fc" id="L13">        return a * b;</span>
+<span class="fc" id="L15">        return a * b;</span>
     }
     
     public int divide(int a, int b) {
-<span class="fc bfc" id="L17" title="All 2 branches covered.">        if (b == 0) {</span>
-<span class="fc" id="L18">            throw new IllegalArgumentException(&quot;Cannot divide by zero&quot;);</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (b == 0) {</span>
+<span class="fc" id="L20">            throw new IllegalArgumentException(&quot;Cannot divide by zero&quot;);</span>
         }
-<span class="fc" id="L20">        return a / b;</span>
+<span class="fc" id="L22">        return a / b;</span>
     }
     
     public boolean isEven(int n) {
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        return n % 2 == 0;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        return n % 2 == 0;</span>
     }
 
     // Null-checking overloads for caller convenience (throw NPE with clear message)
     public int add(Integer a, Integer b) {
-<span class="fc bfc" id="L29" title="All 4 branches covered.">        if (a == null || b == null) throw new NullPointerException(&quot;add: operands must not be null&quot;);</span>
-<span class="fc" id="L30">        return add(a.intValue(), b.intValue());</span>
+<span class="fc" id="L31">        Objects.requireNonNull(a, &quot;add: operands must not be null&quot;);</span>
+<span class="fc" id="L32">        Objects.requireNonNull(b, &quot;add: operands must not be null&quot;);</span>
+<span class="fc" id="L33">        return add(a.intValue(), b.intValue());</span>
     }
 
     public int subtract(Integer a, Integer b) {
-<span class="nc bnc" id="L34" title="All 4 branches missed.">        if (a == null || b == null) throw new NullPointerException(&quot;subtract: operands must not be null&quot;);</span>
-<span class="nc" id="L35">        return subtract(a.intValue(), b.intValue());</span>
+<span class="nc" id="L37">        Objects.requireNonNull(a, &quot;subtract: operands must not be null&quot;);</span>
+<span class="nc" id="L38">        Objects.requireNonNull(b, &quot;subtract: operands must not be null&quot;);</span>
+<span class="nc" id="L39">        return subtract(a.intValue(), b.intValue());</span>
     }
 
     public int multiply(Integer a, Integer b) {
-<span class="pc bpc" id="L39" title="2 of 4 branches missed.">        if (a == null || b == null) throw new NullPointerException(&quot;multiply: operands must not be null&quot;);</span>
-<span class="fc" id="L40">        return multiply(a.intValue(), b.intValue());</span>
+<span class="fc" id="L43">        Objects.requireNonNull(a, &quot;multiply: operands must not be null&quot;);</span>
+<span class="fc" id="L44">        Objects.requireNonNull(b, &quot;multiply: operands must not be null&quot;);</span>
+<span class="fc" id="L45">        return multiply(a.intValue(), b.intValue());</span>
     }
 
     public int divide(Integer a, Integer b) {
-<span class="pc bpc" id="L44" title="1 of 4 branches missed.">        if (a == null || b == null) throw new NullPointerException(&quot;divide: operands must not be null&quot;);</span>
-<span class="nc" id="L45">        return divide(a.intValue(), b.intValue());</span>
+<span class="fc" id="L49">        Objects.requireNonNull(a, &quot;divide: operands must not be null&quot;);</span>
+<span class="nc" id="L50">        Objects.requireNonNull(b, &quot;divide: operands must not be null&quot;);</span>
+<span class="nc" id="L51">        return divide(a.intValue(), b.intValue());</span>
     }
 
     public boolean isEven(Integer n) {
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (n == null) throw new NullPointerException(&quot;isEven: parameter must not be null&quot;);</span>
-<span class="fc" id="L50">        return isEven(n.intValue());</span>
+<span class="fc" id="L55">        Objects.requireNonNull(n, &quot;isEven: parameter must not be null&quot;);</span>
+<span class="fc" id="L56">        return isEven(n.intValue());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

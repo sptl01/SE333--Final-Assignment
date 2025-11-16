@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.CalculatorDivideSpecTest" time="0.103" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.CalculatorDivideSpecTest" time="0.102" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Amazon Corretto\jdk21.0.5_11\bin"/>
-    <property name="sun.java.command" value="C:\Users\smitp\AppData\Local\Temp\surefire12260411305668367116\surefirebooter7632197481734464902.jar C:\Users\smitp\AppData\Local\Temp\surefire12260411305668367116 2025-11-16T10-57-54_133-jvmRun1 surefire18083046792154308393tmp surefire_06197794787346500526tmp"/>
+    <property name="sun.java.command" value="C:\Users\smitp\AppData\Local\Temp\surefire10651619479674142224\surefirebooter3658295554017658994.jar C:\Users\smitp\AppData\Local\Temp\surefire10651619479674142224 2025-11-16T11-03-36_607-jvmRun1 surefire2387938473436879751tmp surefire_017211433360597021508tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="D:\SE 333\Final Assignment\maven-projects\target\test-classes;D:\SE 333\Final Assignment\maven-projects\target\classes;C:\Users\smitp\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\smitp\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\smitp\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\smitp\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\smitp\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\smitp\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\smitp\AppData\Local\Temp\surefire12260411305668367116\surefirebooter7632197481734464902.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\smitp\AppData\Local\Temp\surefire10651619479674142224\surefirebooter3658295554017658994.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.5+11-LTS"/>
@@ -59,9 +59,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="divideByZeroThrows" classname="com.example.CalculatorDivideSpecTest" time="0.057"/>
+  <testcase name="divideByZeroThrows" classname="com.example.CalculatorDivideSpecTest" time="0.053"/>
   <testcase name="divideByOneAndSelf" classname="com.example.CalculatorDivideSpecTest" time="0.002"/>
-  <testcase name="dividesWithRemainderTruncation" classname="com.example.CalculatorDivideSpecTest" time="0"/>
-  <testcase name="dividesPositiveNumbers" classname="com.example.CalculatorDivideSpecTest" time="0.002"/>
+  <testcase name="dividesWithRemainderTruncation" classname="com.example.CalculatorDivideSpecTest" time="0.001"/>
+  <testcase name="dividesPositiveNumbers" classname="com.example.CalculatorDivideSpecTest" time="0.001"/>
   <testcase name="dividesNegativeNumbers" classname="com.example.CalculatorDivideSpecTest" time="0.002"/>
 </testsuite>
