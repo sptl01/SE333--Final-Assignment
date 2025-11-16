@@ -9,7 +9,7 @@ def add(a: int, b: int) -> int:
     """Add two numbers"""
     return a + b
 
-# === PHASE 2 TOOLS ===
+# PHASE 2 TOOL
 from mcp_tools import generate_junit_test, run_maven_test, get_coverage, find_uncovered_lines
 
 
@@ -30,24 +30,21 @@ import xml.etree.ElementTree as ET
 
 mcp = FastMCP("Testing Agent 🧪")
 
-# ============================================
+
+
 # TOOL 1: Analyze Java Source Code
-# ============================================
+
 @mcp.tool
 def analyze_java_file(file_path: str) -> str:
-    """
-    Analyze a Java source file and extract method signatures.
-    Returns formatted method information for test generation.
-    """
     try:
         with open(file_path, 'r') as f:
             content = f.read()
         
-        # Extract class name
+    
         class_match = re.search(r'public class (\w+)', content)
         class_name = class_match.group(1) if class_match else "Unknown"
         
-        # Extract method signatures
+        
         method_pattern = r'public\s+(\w+)\s+(\w+)\s*\((.*?)\)'
         methods = re.findall(method_pattern, content)
         
@@ -60,15 +57,11 @@ def analyze_java_file(file_path: str) -> str:
         return f"Error analyzing file: {str(e)}"
 
 
-# ============================================
+
 # TOOL 2: Generate JUnit Test Cases
-# ============================================
+
 @mcp.tool
 def generate_junit_tests(class_name: str, methods: str) -> str:
-    """
-    Generate basic JUnit 5 test cases based on method signatures.
-    Returns test class code.
-    """
     test_code = f"""package com.example;
 
 import org.junit.jupiter.api.Test;
@@ -78,7 +71,6 @@ public class {class_name}Test {{
     
     private {class_name} instance = new {class_name}();
     
-    // Generated test cases
     @Test
     public void testBasicFunctionality() {{
         assertNotNull(instance);
@@ -88,15 +80,12 @@ public class {class_name}Test {{
     return test_code
 
 
-# ============================================
+
 # TOOL 3: Execute Maven Tests
-# ============================================
+
 @mcp.tool
 def run_maven_tests(project_path: str = "maven-projects/assign") -> str:
-    """
-    Execute Maven tests and return results.
-    project_path: path to Maven project directory (relative to current working directory)
-    """
+
     try:
         result = subprocess.run(
             ["mvn", "clean", "test"],
@@ -117,15 +106,12 @@ def run_maven_tests(project_path: str = "maven-projects/assign") -> str:
         return f"Error running tests: {str(e)}"
 
 
-# ============================================
+
 # TOOL 4: Parse JaCoCo Coverage Report
-# ============================================
+
 @mcp.tool
 def parse_coverage_report(project_path: str = "maven-projects/assign") -> str:
-    """
-    Parse JaCoCo XML report and extract coverage metrics.
-    Returns coverage statistics and recommendations.
-    """
+
     try:
         jacoco_path = Path(project_path) / "target" / "site" / "jacoco" / "jacoco.xml"
         
@@ -135,7 +121,6 @@ def parse_coverage_report(project_path: str = "maven-projects/assign") -> str:
         tree = ET.parse(jacoco_path)
         root = tree.getroot()
         
-        # Extract coverage metrics
         coverage_data = {
             "line": {"covered": 0, "missed": 0},
             "branch": {"covered": 0, "missed": 0},
@@ -148,7 +133,6 @@ def parse_coverage_report(project_path: str = "maven-projects/assign") -> str:
                 coverage_data[counter_type]["covered"] = int(counter.get("covered", 0))
                 coverage_data[counter_type]["missed"] = int(counter.get("missed", 0))
         
-        # Calculate percentages
         result = "📊 Code Coverage Report\n\n"
         for metric_type, values in coverage_data.items():
             total = values["covered"] + values["missed"]
@@ -161,15 +145,12 @@ def parse_coverage_report(project_path: str = "maven-projects/assign") -> str:
         return f"Error parsing coverage report: {str(e)}"
 
 
-# ============================================
+
 # TOOL 5: List Uncovered Lines
-# ============================================
+
 @mcp.tool
 def get_uncovered_lines(project_path: str = "maven-projects/assign") -> str:
-    """
-    Extract uncovered lines from JaCoCo report.
-    Helps identify which code paths need more tests.
-    """
+    
     try:
         jacoco_path = Path(project_path) / "target" / "site" / "jacoco" / "jacoco.xml"
         
@@ -200,13 +181,13 @@ def get_uncovered_lines(project_path: str = "maven-projects/assign") -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
-# ============================================
+
+
 # PHASE 3: GIT AUTOMATION TOOLS
-# ============================================
 
 @mcp.tool
 def git_status() -> str:
-    """Return git status: clean, staged changes, conflicts"""
+
     try:
         result = subprocess.run(["git", "status"], capture_output=True, text=True)
         return result.stdout
@@ -228,7 +209,6 @@ def git_add_all() -> str:
 
 @mcp.tool
 def git_commit(message: str) -> str:
-    """Commit with standardized message (include coverage stats)"""
     try:
         result = subprocess.run(["git", "commit", "-m", message], capture_output=True, text=True)
         if result.returncode == 0:
@@ -240,7 +220,6 @@ def git_commit(message: str) -> str:
 
 @mcp.tool
 def git_push(remote: str = "origin") -> str:
-    """Push to remote, set upstream if needed"""
     try:
         result = subprocess.run(
             ["git", "push", "--set-upstream", remote, "HEAD"],
@@ -256,7 +235,6 @@ def git_push(remote: str = "origin") -> str:
 
 @mcp.tool
 def git_pull_request(base: str = "main", title: str = "", body: str = "") -> str:
-    """Create PR with template, return URL"""
     try:
         result = subprocess.run(
             ["gh", "pr", "create", "--base", base, "--title", title, "--body", body],
@@ -270,44 +248,37 @@ def git_pull_request(base: str = "main", title: str = "", body: str = "") -> str
     except Exception as e:
         return f"Error: {str(e)}"
 
-# ============================================
+
+
 # PHASE 5: CREATIVE EXTENSION 1
 # Specification-Based Testing Generator
-# ============================================
 
 @mcp.tool
 def generate_boundary_tests(method_name: str, param_type: str) -> str:
-    """Generate boundary value test cases for a method"""
     try:
         tests = f"""
-// Boundary Value Tests for {method_name}({param_type})
 @Test
 public void test{method_name}WithZero() {{
-    // Boundary: zero value
     assertNotNull(instance.{method_name}(0));
 }}
 
 @Test
 public void test{method_name}WithPositive() {{
-    // Boundary: positive value
     assertNotNull(instance.{method_name}(100));
 }}
 
 @Test
 public void test{method_name}WithNegative() {{
-    // Boundary: negative value
     assertNotNull(instance.{method_name}(-100));
 }}
 
 @Test
 public void test{method_name}WithMax() {{
-    // Boundary: max value
     assertNotNull(instance.{method_name}(Integer.MAX_VALUE));
 }}
 
 @Test
 public void test{method_name}WithMin() {{
-    // Boundary: min value
     assertNotNull(instance.{method_name}(Integer.MIN_VALUE));
 }}
 """
@@ -316,35 +287,29 @@ public void test{method_name}WithMin() {{
         return f"Error: {str(e)}"
 
 
-# ============================================
 # PHASE 5: CREATIVE EXTENSION 2
 # AI Code Review Agent
-# ============================================
 
 @mcp.tool
 def quick_code_review(file_path: str) -> str:
-    """Quick code review for common issues"""
     try:
         with open(file_path, 'r') as f:
             content = f.read()
         
         issues = []
         
-        # Check 1: Empty catch blocks
         if re.search(r'catch\s*\([^)]*\)\s*\{\s*\}', content):
             issues.append("🔴 Empty catch block detected")
         
-        # Check 2: Magic numbers
         if re.search(r'[^\w]\d{2,}[^\w]', content) and content.count(re.findall(r'\d{2,}', content)[0] if re.findall(r'\d{2,}', content) else '') > 2:
             issues.append("⚠️ Magic numbers found - use constants")
         
-        # Check 3: Long methods
         methods = re.findall(r'public\s+\w+\s+\w+.*?\{.*?\}', content, re.DOTALL)
         long_methods = [m for m in methods if m.count('\n') > 20]
         if long_methods:
             issues.append(f"⚠️ {len(long_methods)} long methods detected (>20 lines)")
         
-        # Check 4: Null checks
+
         if '.get(' in content or '.length' in content:
             if 'null' not in content:
                 issues.append("⚠️ Potential null pointer issue")
@@ -364,11 +329,8 @@ def quick_code_review(file_path: str) -> str:
 
 
 
-# ============================================
 # Helper Functions
-# ============================================
 def extract_test_summary(output: str) -> str:
-    """Extract test summary from Maven output"""
     lines = output.split('\n')
     for line in lines:
         if "Tests run:" in line:
